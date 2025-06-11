@@ -71,9 +71,7 @@ public class ChatFrame extends javax.swing.JFrame {
 
 			System.exit(0);//프로그램 종료!!!!!!!!!!
 		}
-    	
     };
-    
     //채팅화면에 필요한 객체
     JPanel card3, card3_e, card3_s;
     JButton out_bt, send_bt;
