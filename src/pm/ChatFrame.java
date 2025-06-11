@@ -47,7 +47,6 @@ public class ChatFrame extends javax.swing.JFrame {
 							room_list.setListData(p.getRoom_names());
 							break;
                         case 2://채팅
-
                             break;
 						case 3:
 							break bk;
