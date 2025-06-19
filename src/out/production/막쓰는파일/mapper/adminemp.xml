@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminemp">
+
+    <!-- 전체 사원 정보 + 부서명 + 역할명 + 관리자 이름까지 포함 -->
+    <select id="getALLemp" resultType="vo.EmpVO">
+        SELECT
+        e.empno, e.ename, e.sal, e.hiredate, e.resign_date, e.work_status,
+        e.deptno, d.dname AS dept_name, e.role_num, r.role_name, e.mgr, m.ename AS mgr_name,
+        e.phone, e.email, e.username, e.password,e.posname
+        FROM emp e
+        JOIN dept d ON e.deptno = d.deptno
+        JOIN roles r ON e.role_num = r.role_num
+        LEFT JOIN emp m ON e.mgr = m.empno
+        ORDER BY e.empno ASC;
+    </select>
+
+    <!-- 사원 조회용 쿼리  -->
+    <select id="getEmpByEmpno" resultType="vo.EmpVO" parameterType="long">
+        SELECT
+        e.empno, e.ename, e.sal, e.hiredate, e.resign_date, e.work_status, e.deptno,
+        d.dname AS dept_name, e.role_num, r.role_name, e.mgr, m.ename AS mgr_name,
+        e.phone, e.email, e.username, e.password,
+        e.posname
+        FROM emp e
+        JOIN dept d ON e.deptno = d.deptno
+        JOIN roles r ON e.role_num = r.role_num
+        LEFT JOIN emp m ON e.mgr = m.empno
+        WHERE e.empno = #{empno}
+    </select>
+    <!-- 수정용 쿼리-->
+    <update id="updateEmpByAdmin" parameterType="vo.EmpVO">
+        UPDATE emp SET
+        ename = #{ename}, deptno = #{deptno}, role_num = #{role_num}, sal = #{sal},
+        work_status = #{work_status}, hiredate = #{hiredate}, resign_date = #{resign_DATE},
+        mgr = #{mgr}, email = #{email}, phone = #{phone}, username = #{username},
+        password = #{password}, posname = #{posname}
+        WHERE empno = #{empno}
+    </update>
+
+</mapper>
