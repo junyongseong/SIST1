@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="history">
+
+
+    <select id="remain_Vac" parameterType="Map" resultType="vo.Leave_historyVO">
+
+        SELECT * FROM team_db.leave_history where empno = #{empno} and year = #{year}
+
+    </select>
+
+</mapper>

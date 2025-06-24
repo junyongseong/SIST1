@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="docs">
+    <!-- 문서 저장-->
+    <insert id="insertDoc" parameterType="vo.DocsVO" >
+        INSERT INTO documents (docs_num, title, content, empno, deptno, visibility, date)
+        VALUES (#{docs_num}, #{title}, #{content}, #{empno}, #{deptno}, #{visibility}, #{date})
+    </insert>
+
+    <!-- 내 부서 정보 가져오기 -->
+    <select id="Docs_Dept" parameterType="string" resultType="vo.DocsVO">
+        SELECT * FROM documents WHERE deptno = #{deptno}
+    </select>
+
+    <!-- 문서 공유-->
+    <insert id="share_Docs" parameterType="map">
+        INSERT INTO docs_shared (docs_num, deptno)
+        VALUES (#{docs_num}, #{deptno})
+    </insert>
+
+    <!--공유 받은 문서 조회-->
+    <select id="reDocs" parameterType="string" resultType="vo.DocsVO">
+        SELECT ds.share_id, d.docs_num, d.title, d.content, d.empno, d.deptno, e.ename, dp.dname
+        FROM documents d
+        INNER JOIN docs_shared ds ON d.docs_num = ds.docs_num
+        INNER JOIN emp e ON d.empno = e.empno
+        INNER JOIN dept dp ON d.deptno = dp.deptno
+        WHERE ds.deptno = #{deptno}
+    </select>
+
+    <!--부서 모든 정보-->
+    <select id="allDept" resultType="vo.DeptVO">
+        SELECT * FROM dept
+    </select>
+
+    <!--문서 정보 열람-->
+    <select id="getDoc" parameterType="String" resultType="vo.DocsVO">
+        SELECT d.docs_num, d.title, d.content, d.date, e.ename, dp.dname
+        FROM documents d
+        INNER JOIN emp e ON d.empno = e.empno
+        INNER JOIN dept dp ON d.deptno = dp.deptno
+        WHERE d.docs_num = #{docs_num}
+    </select>
+
+</mapper>

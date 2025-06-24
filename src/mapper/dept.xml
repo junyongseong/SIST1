@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dept">
+    <select id="getDept" resultType="vo.DeptVO" parameterType="String">
+        select * from dept
+        where deptno = #{key}
+    </select>
+    <resultMap id="res1" type="vo.DeptVO">
+        <id column="deptno" property="deptno"/>
+        <!-- id는 기본키의 속성을 지정할 때 사용, property="deptno"는
+       type에 지정된 DeptVO의 멤버변수(속성) 중 deptno라는 변수가 기본키이며
+       column="deptno"라는 것은 deptno라는 컬럼의 값을 deptno변수에 저장하라는 것이다.-->
+        <collection property="list" ofType="vo.DocsVO" select="docs.search_dept" column="deptno">
+            <!--여기서 depno를 써버렸기 때문에 id 생성-->
+        </collection>
+    </resultMap>
+    <select id="all" resultMap="res1">
+        SELECT * FROM dept
+    </select>
+</mapper>

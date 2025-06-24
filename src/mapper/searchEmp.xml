@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="searchEmp">
+    <!-- 사번 검색 쿼리 -->
+    <select id="searchEmpno" resultType="vo.EmpVO" parameterType="String">
+        SELECT e.empno, e.ename, e.posname, d.dname, e.phone, e.email, e.hiredate
+        FROM emp e INNER JOIN dept d
+                              ON e.deptno = d.deptno
+        WHERE e.empno LIKE CONCAT('%', #{empno}, '%')
+    </select>
+
+    <!-- 이름 검색 쿼리 -->
+    <select id="searchEname" resultType="vo.EmpVO" parameterType="String">
+        SELECT e.empno, e.ename, e.posname, d.dname, e.phone, e.email, e.hiredate
+        FROM emp e INNER JOIN dept d
+                              ON e.deptno = d.deptno
+        WHERE e.ename LIKE CONCAT('%', #{ename}, '%')
+    </select>
+
+    <!-- 직급명 검색 쿼리 -->
+    <select id="searchPos" resultType="vo.EmpVO" parameterType="String">
+        SELECT e.empno, e.ename, e.posname, d.dname, e.phone, e.email, e.hiredate
+        FROM emp e INNER JOIN dept d
+                              ON e.deptno = d.deptno
+        WHERE e.posname LIKE CONCAT('%', #{posname}, '%')
+    </select>
+
+    <!-- 부서명 검색 쿼리 -->
+    <select id="searchEmp" resultType="vo.EmpVO" parameterType="String">
+        SELECT e.empno, e.ename, e.posname, d.dname, e.phone, e.email, e.hiredate
+        FROM emp e INNER JOIN dept d
+                              ON e.deptno = d.deptno
+        WHERE d.dname LIKE CONCAT('%', #{dname}, '%')
+    </select>
+
+    <!-- 전화번호 검색 쿼리 -->
+    <select id="searchPhone" resultType="vo.EmpVO" parameterType="String">
+        SELECT e.empno, e.ename, e.posname, d.dname, e.phone, e.email, e.hiredate
+        FROM emp e INNER JOIN dept d
+                              ON e.deptno = d.deptno
+        WHERE e.phone LIKE CONCAT('%', #{phone}, '%')
+    </select>
+
+    <!-- 이메일 검색 쿼리 -->
+    <select id="searchEmail" resultType="vo.EmpVO" parameterType="String">
+        SELECT e.empno, e.ename, e.posname, d.dname, e.phone, e.email, e.hiredate
+        FROM emp e INNER JOIN dept d
+                              ON e.deptno = d.deptno
+        WHERE e.email LIKE CONCAT('%', #{email}, '%')
+    </select>
+
+    <!-- 입사일 검색 쿼리 -->
+    <select id="searchHiredate" resultType="vo.EmpVO" parameterType="String">
+        SELECT e.empno, e.ename, e.posname, d.dname, e.phone, e.email, e.hiredate
+        FROM emp e INNER JOIN dept d
+                              ON e.deptno = d.deptno
+        WHERE e.hiredate LIKE CONCAT('%', #{hiredate}, '%')
+    </select>
+</mapper>
